@@ -1,0 +1,55 @@
+@font-face {
+  font-family: ;
+  src: url();
+}
+
+:root {
+  --var1: ;
+  --var2: ;
+  --var3: ;
+}
+
+/* GLOBAL SETTINGS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+html {
+  font-size: 62.5%;
+}
+/* HEADER  */
+.output {
+  width: 100vw;
+  height: 100vh;
+}
+
+.outputcontainer div {
+  display: Flex;
+  justify-content: space-between;
+}
+
+.outputcontainer .temperaturecontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.outputcontainer {
+  padding: 8rem;
+  font-size: 3rem;
+}
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
