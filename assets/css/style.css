@@ -59,19 +59,25 @@ body {
   height: 100vh;
 }
 
-.forecast {
+.forecast,
+.forecasttwo,
+.forecastthree,
+.forecastfour,
+.forecastfive {
   display: flex;
   justify-content: flex-start;
   overflow: hidden;
   width: 50%;
   white-space: nowrap;
   gap: 5rem;
+  margin-bottom: 5rem;
 }
 .forecastitem {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   text-align: center;
+  padding: 1rem;
 }
 
 .forecastdescr {
@@ -80,4 +86,12 @@ body {
 
 .forecastday {
   text-align: center;
+}
+.suggestion {
+  padding: 5px;
+  cursor: pointer;
+}
+.selected,
+.suggestion:hover {
+  background-color: #f0f0f0;
 }

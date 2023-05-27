@@ -121,70 +121,11 @@ const processData = (data) => {
       console.log(data);
       let outputForecast = document.querySelector(".forecast");
       const timeInterval = data.list;
+
       timeInterval.forEach((timestamp) => {
-        const today = new Date();
-        const todayDay = today.getDate();
-        const todayMonth = today.getMonth();
-        const todayYear = today.getFullYear();
-
-        const timestampDate = new Date(timestamp.dt_txt);
-
-        const dayApi = timestampDate.getDate();
-        const monthApi = timestampDate.getMonth();
-        const yearApi = timestampDate.getFullYear();
-        const hoursApi = timestampDate.getHours();
-        const dayNameApi = timestampDate.toLocaleString("de-DE", {
-          weekday: "long",
-        });
-        const fullDateApi = timestampDate.toLocaleDateString();
-        let foreCastTitleTxt;
-        let foreCastTitleTime;
-        let foreCastTitleDate;
-        if (
-          dayApi == todayDay &&
-          monthApi == todayMonth &&
-          yearApi == todayYear
-        ) {
-          console.log("heute");
-          console.log(hoursApi);
-          foreCastTitleTxt = `Heute`;
-          foreCastTitleTime = `${hoursApi}:00 Uhr`;
-          foreCastTitleDate = `${fullDateApi}`;
-        } else if (
-          (dayApi - todayDay == 1 &&
-            monthApi == todayMonth &&
-            yearApi == todayYear) ||
-          (todayDay - dayApi == 27 &&
-            monthApi - todayMonth == 1 &&
-            yearApi == todayYear)
-        ) {
-          console.log("nein");
-          foreCastTitleTxt = `Morgen`;
-          foreCastTitleTime = `${hoursApi}:00 Uhr`;
-          foreCastTitleDate = `${fullDateApi}`;
-        } else if (
-          (dayApi - todayDay == 2 &&
-            monthApi == todayMonth &&
-            yearApi == todayYear) ||
-          (todayDay - dayApi > 27 &&
-            monthApi > todayMonth &&
-            yearApi == todayYear) ||
-          dayApi - todayDay >= 3 ||
-          dayApi - todayDay <= -1
-        ) {
-          foreCastTitleTxt = ` ${dayNameApi}`;
-          foreCastTitleTime = `${hoursApi}:00 Uhr`;
-          foreCastTitleDate = `${fullDateApi}`;
-        }
-        const html = `<div class=forecastitem> <h2 class=forecastday>${foreCastTitleTxt} </h2>
-        <h2 class=forecasttime>${foreCastTitleTime} </h2>
-        <h2 class=forecastdate>${foreCastTitleDate} </h2>
-        <div class = tempforecastbox> <img src="http://openweathermap.org/img/wn/${
-          timestamp.weather[0].icon
-        }@2x.png" > <h2> ${timestamp.main.temp.toFixed()} °</h2></div>
-        <div class= forecastdescr><h2>${
-          timestamp.weather[0].description
-        } </h2></div>
+        const html = `<div class=forecastitem> <h2 class=forecastday>${timestamp.dt_txt} </h2>
+        <div class = tempforecastbox> <img src="http://openweathermap.org/img/wn/${timestamp.weather[0].icon}@2x.png" > <h2> ${timestamp.main.temp} °</h2></div>
+        <div class= forecastdescr><h2>${timestamp.weather[0].description} </h2></div>
         </div>`;
         outputForecast.insertAdjacentHTML("beforeend", html);
       });
@@ -193,13 +134,13 @@ const processData = (data) => {
   // Output in das HTML
 
   weatherTitle.innerHTML = `Wetter in ${cityName},${country}`;
-  temperature.innerHTML = `${temp.toFixed()} °C`;
+  temperature.innerHTML = `${temp} °C`;
   icon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
   );
   cloudInfo.innerHTML = `${weatherDescription}`;
-  actualTime.innerHTML = `Daten erhalten am ${new Date().toLocaleDateString()} um ${new Date().toLocaleTimeString()} Uhr `;
+  actualTime.innerHTML = new Date();
   localTime.innerHTML = `${timeZone}`;
   wind.innerHTML = `${windDegree},${windSpeed} m/s`;
   cloudiness.innerHTML = `${weatherDescription}`;
@@ -278,3 +219,155 @@ container.addEventListener("wheel", (event) => {
 });
 // Set start position to the leftmost side of the container
 const firstInnerContainer = innerContainers[0];
+
+// // container.scrollLeft = firstInnerContainer.offsetLeft;
+// document.addEventListener("DOMContentLoaded", () => {
+//   let autocompleteEnabled = true; // Variable zum Verfolgen des Status der Autocomplete-Funktion
+
+//   const getAutocompleteSuggestions = async (searchQuery) => {
+//     if (!autocompleteEnabled) {
+//       return []; // Rückgabe einer leeren Liste, wenn die Autocomplete-Funktion deaktiviert ist
+//     }
+
+//     const apiUrl = `https://nominatim.openstreetmap.org/search.php?q=${encodeURIComponent(
+//       searchQuery
+//     )}&format=json&extratags=1&addressdetails=1&limit=5`;
+
+//     try {
+//       const response = await fetch(apiUrl);
+//       const data = await response.json();
+
+//       // Extrahiere nur den Stadtnamen und das Land aus den Daten
+//       const suggestions = data.map((entry) => {
+//         const city =
+//           entry.address.city ||
+//           entry.address.town ||
+//           entry.address.village ||
+//           "";
+//         const country = entry.address.country || "";
+
+//         // Überprüfe, ob der Stadtnamen in den Vorschlägen vorhanden ist
+//         if (!city) {
+//           return null; // Wenn der Stadtnamen nicht vorhanden ist, wird null zurückgegeben
+//         }
+
+//         return `${city}, ${country}`.trim();
+//       });
+
+//       const lowerCaseSearchQuery = searchQuery.toLowerCase();
+//       const uniqueSuggestions = Array.from(new Set(suggestions)).filter(
+//         (suggestion) =>
+//           suggestion !== null &&
+//           suggestion.toLowerCase().includes(lowerCaseSearchQuery)
+//       ); // Entferne doppelte Vorschläge, filtere null-Werte und Vorschläge, die den eingegebenen Text nicht enthalten (ignoriert Groß- und Kleinschreibung)
+
+//       return uniqueSuggestions;
+//     } catch (error) {
+//       console.log("Fehler beim Laden der Autocomplete-Vorschläge:", error);
+//       return [];
+//     }
+//   };
+
+//   const searchInput = document.querySelector("#city");
+//   const suggestionsContainer = document.querySelector("#suggestions-container");
+//   let selectedSuggestionIndex = -1;
+
+//   const highlightSuggestion = (index) => {
+//     const suggestionDivs = suggestionsContainer.querySelectorAll(".suggestion");
+
+//     suggestionDivs.forEach((suggestionDiv, i) => {
+//       if (i === index) {
+//         suggestionDiv.classList.add("selected");
+//       } else {
+//         suggestionDiv.classList.remove("selected");
+//       }
+//     });
+//   };
+
+//   const navigateSuggestions = (direction) => {
+//     const suggestionDivs = suggestionsContainer.querySelectorAll(".suggestion");
+//     const numSuggestions = suggestionDivs.length;
+
+//     if (numSuggestions === 0) {
+//       return;
+//     }
+
+//     if (direction === "up") {
+//       selectedSuggestionIndex =
+//         (selectedSuggestionIndex - 1 + numSuggestions) % numSuggestions;
+//     } else if (direction === "down") {
+//       selectedSuggestionIndex = (selectedSuggestionIndex + 1) % numSuggestions;
+//     }
+
+//     highlightSuggestion(selectedSuggestionIndex);
+//   };
+
+//   searchInput.addEventListener("keydown", (event) => {
+//     const key = event.key;
+
+//     if (key === "Enter") {
+//       // Führe die Suche aus oder führe eine Aktion mit dem ausgewählten Vorschlag aus
+//       const selectedSuggestion =
+//         suggestionsContainer.querySelector(".selected");
+
+//       if (selectedSuggestion) {
+//         searchInput.value = selectedSuggestion.textContent.trim();
+//       }
+
+//       // Entferne die Vorschläge
+//       suggestionsContainer.innerHTML = "";
+//       selectedSuggestionIndex = -1;
+
+//       autocompleteEnabled = false; // Deaktiviere die Autocomplete-Funktion
+//     } else if (key === "ArrowUp") {
+//       event.preventDefault();
+//       navigateSuggestions("up");
+//     } else if (key === "ArrowDown") {
+//       event.preventDefault();
+//       navigateSuggestions("down");
+//     }
+//   });
+
+//   const submitButton = document.querySelector("#city");
+//   submitButton.addEventListener("click", (event) => {
+//     autocompleteEnabled = false; // Deaktiviere die Autocomplete-Funktion
+//   });
+
+//   searchInput.addEventListener("input", async (event) => {
+//     const searchQuery = event.target.value;
+
+//     if (searchQuery.trim() === "") {
+//       // Wenn das Eingabefeld leer ist, nichts tun
+//       suggestionsContainer.innerHTML = "";
+//       return;
+//     }
+
+//     autocompleteEnabled = true; // Aktiviere die Autocomplete-Funktion
+
+//     const suggestions = await getAutocompleteSuggestions(searchQuery);
+
+//     // Entferne vorhandene Vorschläge
+//     suggestionsContainer.innerHTML = "";
+//     selectedSuggestionIndex = -1;
+
+//     // Füge die neuen Vorschläge hinzu
+//     suggestions.forEach((suggestion, index) => {
+//       const suggestionDiv = document.createElement("div");
+//       suggestionDiv.classList.add("suggestion");
+//       suggestionDiv.innerHTML = `<p>${suggestion}</p>`;
+
+//       suggestionDiv.addEventListener("click", () => {
+//         // Fülle das Eingabefeld mit dem ausgewählten Vorschlag
+//         searchInput.value = suggestion;
+//       });
+
+//       suggestionDiv.addEventListener("mouseenter", () => {
+//         // Aktualisiere den ausgewählten Vorschlag bei Mouseenter
+//         selectedSuggestionIndex = index;
+//         highlightSuggestion(selectedSuggestionIndex);
+//       });
+
+//       suggestionsContainer.appendChild(suggestionDiv);
+//     });
+//   });
+// });
