@@ -1,0 +1,37 @@
+/* IMPORTS */
+@import "variables";
+@import "mixin";
+@import "style";
+@import "animations";
+@import "mediaqueries_tablets";
+@import "mediaqueries_mobile";
+
+@font-face {
+  font-family: futura;
+  src: url(../fonts/futura_med.ttf);
+}
+@font-face {
+  font-family: futuralight;
+  src: url(../fonts/futura_light.ttf);
+}
+
+.dashboardcontainer {
+  @include dashboardcontainerstyling;
+  .leftcontainer {
+    @include leftcontainerstyling;
+    .todaysoutput {
+      .outputcontainer {
+        @include todaysoutputcontainerstyling;
+      }
+    }
+  }
+  .rightcontainer {
+    @include rightcontainerstyling;
+    .forecastcontainer {
+      @include forecastcontainerstyling;
+      .forecastitem {
+        @include forecastitemstyling;
+      }
+    }
+  }
+}

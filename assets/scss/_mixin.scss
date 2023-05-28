@@ -1,0 +1,53 @@
+@mixin dashboardcontainerstyling {
+  background-color: $bgcontainercolor;
+  height: 90vh;
+  margin: 5rem;
+  border-radius: $dashboardborderradius;
+  padding: $dashboardpadding;
+  display: flex;
+}
+@mixin leftcontainerstyling {
+  width: 20%;
+  background-color: $bgcontainercolorwhite;
+  margin: -5rem 0 -5rem -5rem;
+  height: 90vh;
+  border-bottom-left-radius: $dashboardborderradius;
+  border-top-left-radius: $dashboardborderradius;
+  padding: $dashboardpadding;
+}
+@mixin rightcontainerstyling {
+  background-color: $bgcontainercolor;
+  width: 80%;
+  height: 90vh;
+  margin: -5rem -5rem -5rem 0;
+  padding: $dashboardpadding;
+  border-bottom-right-radius: $dashboardborderradius;
+  border-top-right-radius: $dashboardborderradius;
+}
+
+@mixin forecastcontainerstyling {
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-direction: row;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+@mixin forecastitemstyling {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 4rem;
+  border-radius: $itemborderradius;
+  background-color: $bgcontainercolorwhite;
+}
+@mixin todaysoutputcontainerstyling {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}

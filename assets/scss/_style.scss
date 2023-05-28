@@ -1,0 +1,63 @@
+/* STYLING */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+}
+
+/*GENERAL*/
+body {
+  background-color: $bgcolor;
+  font-family: futura;
+}
+/*FONT STYLING*/
+h1 {
+  font-family: futura;
+  font-weight: 500;
+  font-size: 3rem;
+}
+h2 {
+  font-family: futuralight;
+  font-size: 2rem;
+  font-weight: 600;
+}
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+p {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+/*DASHBOARDCONTAINER*/
+.todaysoutput {
+  height: 90%;
+}
+.weathericon {
+  width: 100%;
+}
+.temperatureoutput {
+  font-family: futuralight;
+  font-size: 10rem;
+
+  vertical-align: text-top;
+  .tempunit {
+    vertical-align: sup;
+    font-family: futura;
+    font-size: 4rem;
+  }
+}
+.cityimg {
+  height: 100%;
+  width: 50%;
+}

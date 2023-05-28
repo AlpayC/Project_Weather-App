@@ -1,21 +1,20 @@
 const apiKey = "644ce177f2832521a036c130adc9e8da";
-let icon = document.querySelector(".weathericon");
-let weatherTitle = document.querySelector(".weathertitle");
-let temperature = document.querySelector(".temperatureoutput");
-let cloudInfo = document.querySelector(".cloudinfooutput");
-let actualTime = document.querySelector(".actualtimeoutput");
-let localTime = document.querySelector(".localtimeoutput");
-let wind = document.querySelector(".windoutput");
-let cloudiness = document.querySelector(".cloudinessoutput");
-let pressureInfo = document.querySelector(".pressureoutput");
-let humidityInfo = document.querySelector(".humidityoutput");
-let sunriseInfo = document.querySelector(".sunriseoutput");
-let sunsetInfo = document.querySelector(".sunsetoutput");
-let coordsInfo = document.querySelector(".coordoutput");
 
 const getWeatherData = () => {
   // Der Input imt Textfeld wird nun in der Variable gespeichert
   let city = document.querySelector("#city").value;
+  let cityBackground = document.querySelector(".cityimg");
+  fetch(
+    `https://pixabay.com/api/?key=36815996-aa926cadda8d303d9cfe5178f&q=${city}+city`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      console.log(data.hits[0].largeImageURL);
+      cityBackground.style.backgroundImage = `url(${data.hits[0].largeImageURL})`;
+    })
+    .catch((error) => console.log("Fehler beim Laden: ", error));
+
   // Es wird geprüft, ob im Input eine Zahl oder ein Text enthalten ist. typeof city gibt selbst bei einer Zahl immer String aus. Daher habe ich !isNan als Prüfoperator genutzt. So ist eine if else bedingung ob Zahl oder String möglich
   if (!isNaN(city)) {
     console.log("Variable is a number");
@@ -119,16 +118,15 @@ const processData = (data) => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      let outputForecast = document.querySelector(".forecast");
+      let outputForecast = document.querySelector(".forecastcontainer");
+
       const timeInterval = data.list;
       timeInterval.forEach((timestamp) => {
         const today = new Date();
         const todayDay = today.getDate();
         const todayMonth = today.getMonth();
         const todayYear = today.getFullYear();
-
         const timestampDate = new Date(timestamp.dt_txt);
-
         const dayApi = timestampDate.getDate();
         const monthApi = timestampDate.getMonth();
         const yearApi = timestampDate.getFullYear();
@@ -176,38 +174,71 @@ const processData = (data) => {
           foreCastTitleTime = `${hoursApi}:00 Uhr`;
           foreCastTitleDate = `${fullDateApi}`;
         }
-        const html = `<div class=forecastitem> <h2 class=forecastday>${foreCastTitleTxt} </h2>
-        <h2 class=forecasttime>${foreCastTitleTime} </h2>
-        <h2 class=forecastdate>${foreCastTitleDate} </h2>
-        <div class = tempforecastbox> <img src="http://openweathermap.org/img/wn/${
+
+        // !Output in das HTML
+        // Output der ForecastItems im Forecastcontainer
+        const foreCastContainer = `<div class=forecastitem> <h2 class=forecastday>${foreCastTitleTxt} </h2>
+
+        <div class = tempforecastbox> <img class=weathericonforecast src="http://openweathermap.org/img/wn/${
           timestamp.weather[0].icon
         }@2x.png" > <h2> ${timestamp.main.temp.toFixed()} °</h2></div>
-        <div class= forecastdescr><h2>${
-          timestamp.weather[0].description
-        } </h2></div>
+        <h3 class=forecasttime>${foreCastTitleTime}</h3>
+        <h3 class=forecastdate>${foreCastTitleDate}</h3>
         </div>`;
-        outputForecast.insertAdjacentHTML("beforeend", html);
+        outputForecast.insertAdjacentHTML("beforeend", foreCastContainer);
       });
+      // Output des aktuellen Wetters MAIN
+
+      let outputMainData = document.querySelector(".outputcontainer");
+      const outputContainerMain = `<h1 class="weathertitle">Wetter in ${cityName},${country}</h1>
+  <div class="temperaturecontainer">
+    <img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="" class="weathericon" />
+    <p class="temperatureoutput">${temp.toFixed()}<span class=tempunit>°C</span></p>
+  </div>
+  <p class="cloudinfooutput">${weatherDescription}</p>
+  <p class="actualtimeoutput">Daten erhalten am ${new Date().toLocaleDateString()} um ${new Date().toLocaleTimeString()} Uhr</p>
+  <div class=cityimg></div>
+  <div class="localtimecontainer">
+    <h3>Local time</h3>
+    <h3 class="localtimeoutput">${timeZone}</h3>
+  </div>
+  `;
+
+      outputMainData.insertAdjacentHTML("afterbegin", outputContainerMain);
+      let outputSecData = document.querySelector(".outputcontainersec");
+      const outputContainerSecondary = `<div class="windcontainer">
+      <h3>Wind</h3>
+      <h3 class="windoutput">${windDegree},${windSpeed} m/s</h3>
+    </div>
+    <div class="cloudinesscontainer">
+      <h3>Wolken</h3>
+      <h3 class="cloudinessoutput">${weatherDescription}</h3>
+    </div>
+    <div class="pressurecontainer">
+      <h3>Luftdruck</h3>
+      <h3 class="pressureoutput">${pressure} Hpa</h3>
+    </div>
+    <div class="humiditycontainer">
+      <h3>Luftfeuchtigkeit</h3>
+      <h3 class="humidityoutput">${humidity} %</h3>
+    </div>
+    <div class="sunrisecontainer">
+      <h3>Sonnenaufgang</h3>
+      <h3 class="sunriseoutput">0${sunRise.getHours()}:${sunRise.getMinutes()}</h3>
+    </div>
+    <div class="sunsetcontainer">
+      <h3>Sonnenuntergang</h3>
+      <h3 class="sunsetoutput">${sunSet.getHours()}:${sunSet.getMinutes()}</h3>
+    </div>
+    <div class="coordcontainer">
+      <h3>Koordinaten</h3>
+      <h3 class="coordoutput">[${coordLat.toFixed(2)},${coordLon.toFixed(
+        2
+      )}]</h3>
+    </div>`;
+      outputSecData.insertAdjacentHTML("afterbegin", outputContainerSecondary);
     })
     .catch((error) => console.log("Fehler beim Laden: ", error));
-  // Output in das HTML
-
-  weatherTitle.innerHTML = `Wetter in ${cityName},${country}`;
-  temperature.innerHTML = `${temp.toFixed()} °C`;
-  icon.setAttribute(
-    "src",
-    `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`
-  );
-  cloudInfo.innerHTML = `${weatherDescription}`;
-  actualTime.innerHTML = `Daten erhalten am ${new Date().toLocaleDateString()} um ${new Date().toLocaleTimeString()} Uhr `;
-  localTime.innerHTML = `${timeZone}`;
-  wind.innerHTML = `${windDegree},${windSpeed} m/s`;
-  cloudiness.innerHTML = `${weatherDescription}`;
-  pressureInfo.innerHTML = `${pressure} Hpa`;
-  humidityInfo.innerHTML = `${humidity} %`;
-  sunriseInfo.innerHTML = `0${sunRise.getHours()}:${sunRise.getMinutes()}`;
-  sunsetInfo.innerHTML = `${sunSet.getHours()}:${sunSet.getMinutes()}`;
-  coordsInfo.innerHTML = `[${coordLat.toFixed(2)},${coordLon.toFixed(2)}]`;
 };
 
 // Ausführung der App beim Betätigen der Enter Taste. Es wird beim Entern auf dem "Submit" B utton geklickt und die Funktion ausgeführt
@@ -219,7 +250,7 @@ city.addEventListener("keypress", (e) => {
 
 // Macht die Forecastsektion swipeable
 
-const container = document.querySelector(".forecast");
+const container = document.querySelector(".forecastcontainer");
 const innerContainers = document.querySelectorAll(".forecastitem");
 let isDragging = false;
 let initialX, currentX;

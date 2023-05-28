@@ -1,97 +1,150 @@
-@font-face {
-  font-family: ;
-  src: url();
-}
-
-:root {
-  --var1: ;
-  --var2: ;
-  --var3: ;
-}
-
-/* GLOBAL SETTINGS */
+/* IMPORTS */ /* VARIABLES */ /* STYLING */
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 img {
   max-width: 100%;
 }
 
-html {
-  font-size: 62.5%;
-}
-/* HEADER  */
-.output {
-  width: 100vw;
-  height: 100vh;
+/*GENERAL*/
+body {
+  background-color: #d6d7da;
+  font-family: futura;
 }
 
-.outputcontainer div {
-  display: Flex;
-  justify-content: space-between;
-}
-
-.outputcontainer .temperaturecontainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.outputcontainer {
-  padding: 8rem;
+/*FONT STYLING*/
+h1 {
+  font-family: futura;
+  font-weight: 500;
   font-size: 3rem;
 }
-body {
+
+h2 {
+  font-family: futuralight;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+p {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/*DASHBOARDCONTAINER*/
+.todaysoutput {
+  height: 90%;
+}
+
+.weathericon {
+  width: 100%;
+}
+
+.temperatureoutput {
+  font-family: futuralight;
+  font-size: 10rem;
+  vertical-align: text-top;
+}
+.temperatureoutput .tempunit {
+  vertical-align: sup;
+  font-family: futura;
+  font-size: 4rem;
+}
+
+.cityimg {
+  height: 100%;
+  width: 50%;
+}
+
+.circleanimation {
+  height: 25%;
+  position: absolute;
+  right: -10%;
+  top: -10%;
+  overflow: hidden;
+  animation: rotate-center 8s linear infinite both;
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@font-face {
+  font-family: futura;
+  src: url(../fonts/futura_med.ttf);
+}
+@font-face {
+  font-family: futuralight;
+  src: url(../fonts/futura_light.ttf);
+}
+.dashboardcontainer {
+  background-color: #f6f6f8;
+  height: 90vh;
+  margin: 5rem;
+  border-radius: 5rem;
+  padding: 5rem;
   display: flex;
-  justify-content: center;
+}
+.dashboardcontainer .leftcontainer {
+  width: 20%;
+  background-color: #fff;
+  margin: -5rem 0 -5rem -5rem;
+  height: 90vh;
+  border-bottom-left-radius: 5rem;
+  border-top-left-radius: 5rem;
+  padding: 5rem;
+}
+.dashboardcontainer .leftcontainer .todaysoutput .outputcontainer {
+  display: flex;
+  justify-content: space-between;
   flex-direction: column;
-  align-items: center;
+  height: 100%;
 }
-
-.img-size {
-  width: 100vw;
-  height: 100vh;
+.dashboardcontainer .rightcontainer {
+  background-color: #f6f6f8;
+  width: 80%;
+  height: 90vh;
+  margin: -5rem -5rem -5rem 0;
+  padding: 5rem;
+  border-bottom-right-radius: 5rem;
+  border-top-right-radius: 5rem;
 }
-
-.forecast,
-.forecasttwo,
-.forecastthree,
-.forecastfour,
-.forecastfive {
+.dashboardcontainer .rightcontainer .forecastcontainer {
   display: flex;
   justify-content: flex-start;
   overflow: hidden;
-  width: 50%;
   white-space: nowrap;
-  gap: 5rem;
+  flex-direction: row;
+  gap: 2rem;
   margin-bottom: 5rem;
 }
-.forecastitem {
+.dashboardcontainer .rightcontainer .forecastcontainer .forecastitem {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
-  padding: 1rem;
+  padding: 4rem;
+  border-radius: 2rem;
+  background-color: #fff;
 }
 
-.forecastdescr {
-  text-align: center;
-}
-
-.forecastday {
-  text-align: center;
-}
-.suggestion {
-  padding: 5px;
-  cursor: pointer;
-}
-.selected,
-.suggestion:hover {
-  background-color: #f0f0f0;
-}
+/*# sourceMappingURL=style.css.map */

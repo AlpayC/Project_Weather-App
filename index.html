@@ -11,51 +11,21 @@
     <header>
       <nav></nav>
     </header>
-    <input type="text" name="city" id="city" />
-    <div id="suggestions-container"></div>
-    <input onclick="getWeatherData()" type="submit" value="Suche" />
-    <section class="outputcontainer">
-      <h1 class="weathertitle"></h1>
-      <div class="temperaturecontainer">
-        <img src="" alt="" class="weathericon" />
-        <p class="temperatureoutput"></p>
-      </div>
-      <p class="cloudinfooutput"></p>
-      <p class="actualtimeoutput"></p>
-      <div class="localtimecontainer">
-        <h3>Local time</h3>
-        <h3 class="localtimeoutput"></h3>
-      </div>
-      <div class="windcontainer">
-        <h3>Wind</h3>
-        <h3 class="windoutput"></h3>
-      </div>
-      <div class="cloudinesscontainer">
-        <h3>Wolken</h3>
-        <h3 class="cloudinessoutput"></h3>
-      </div>
-      <div class="pressurecontainer">
-        <h3>Luftdruck</h3>
-        <h3 class="pressureoutput"></h3>
-      </div>
-      <div class="humiditycontainer">
-        <h3>Luftfeuchtigkeit</h3>
-        <h3 class="humidityoutput"></h3>
-      </div>
-      <div class="sunrisecontainer">
-        <h3>Sonnenaufgang</h3>
-        <h3 class="sunriseoutput"></h3>
-      </div>
-      <div class="sunsetcontainer">
-        <h3>Sonnenuntergang</h3>
-        <h3 class="sunsetoutput"></h3>
-      </div>
-      <div class="coordcontainer">
-        <h3>Koordinaten</h3>
-        <h3 class="coordoutput"></h3>
-      </div>
+    <section class="dashboardcontainer">
+      <article class="leftcontainer">
+        <div class="inputfields">
+          <input type="text" name="city" id="city" />
+          <input onclick="getWeatherData()" type="submit" value="Suche" />
+        </div>
+        <div class="todaysoutput">
+          <div class="outputcontainer"></div>
+        </div>
+      </article>
+      <article class="rightcontainer">
+        <section class="forecastcontainer"></section>
+        <section class="outputcontainersec"></section>
+      </article>
     </section>
-    <section class="forecast"></section>
     <main></main>
     <footer></footer>
     <script type="text/javascript" src="./assets/js/main.js"></script>
