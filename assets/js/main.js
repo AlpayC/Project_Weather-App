@@ -118,7 +118,7 @@ const processData = (data) => {
   let airPollution;
   let airPollutionRating;
   fetch(
-    `http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
+    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
   )
     .then((res) => res.json())
     .then((data) => {
