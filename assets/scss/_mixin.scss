@@ -5,22 +5,28 @@
   border-radius: $dashboardborderradius;
   padding: $dashboardpadding;
   display: flex;
+  justify-content: space-evenly;
+  box-shadow: $outerboxshadow;
 }
 @mixin leftcontainerstyling {
   width: 20%;
   background-color: $bgcontainercolorwhite;
-  margin: -5rem 0 -5rem -5rem;
+  margin: -5rem 0 -5rem -10rem;
   height: 90vh;
   border-bottom-left-radius: $dashboardborderradius;
   border-top-left-radius: $dashboardborderradius;
   padding: $dashboardpadding;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 @mixin rightcontainerstyling {
-  background-color: $bgcontainercolor;
+  background-color: transparent;
   width: 80%;
   height: 90vh;
   margin: -5rem -5rem -5rem 0;
   padding: $dashboardpadding;
+  padding-left: 0;
   border-bottom-right-radius: $dashboardborderradius;
   border-top-right-radius: $dashboardborderradius;
 }
@@ -33,6 +39,7 @@
   flex-direction: row;
   gap: 2rem;
   margin-bottom: 5rem;
+  padding: 2rem;
 }
 
 @mixin forecastitemstyling {
@@ -44,10 +51,56 @@
   padding: 4rem;
   border-radius: $itemborderradius;
   background-color: $bgcontainercolorwhite;
+  box-shadow: $innerboxshadow;
 }
 @mixin todaysoutputcontainerstyling {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   height: 100%;
+}
+@mixin outputcontainersecstyling {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  // grid-template-rows: repeat(3, 1fr);
+  height: 50%;
+  gap: 2.5rem;
+}
+@mixin secondaryitemstyling {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 3rem;
+  border-radius: $itemborderradius;
+  background-color: $bgcontainercolorwhite;
+  box-shadow: $innerboxshadow;
+  h3:first-of-type {
+    color: $titlecontainercolor;
+    margin-bottom: 1rem;
+
+    font-family: futuralight;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+}
+
+@mixin scrollbarstyle {
+  ::-webkit-scrollbar {
+    width: 20px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(150, 150, 150);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(54, 56, 58);
+  }
 }

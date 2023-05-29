@@ -49,6 +49,8 @@ const processData = (data) => {
   const cityName = data.name;
   const coordLat = data.coord.lat;
   const coordLon = data.coord.lon;
+  const coordinatesWeatherCard = `?lat=${data.coord.lat}&lon=${data.coord.lon}&detailLat=${data.coord.lat}&detailLon=${data.coord.lon}`;
+  console.log(coordinatesWeatherCard);
   const humidity = data.main.humidity;
   const pressure = data.main.pressure;
   const feelsLike = data.main.feels_like;
@@ -63,8 +65,8 @@ const processData = (data) => {
   const weatherDescription = data.weather[0].description;
   const weatherIcon = data.weather[0].icon;
   let windDegree = data.wind.deg;
-  const windSpeed = data.wind.speed;
-
+  let windSpeed = data.wind.speed;
+  let windArrowDirection = data.wind.deg;
   //  Berechnung der Windrichtung. Es wird die Degree Zahl geprüft und entsprechend mit einer Himmelsrichtung verheiratet und später ausgegeben.
   let i = windDegree;
   if (i >= 349 && i <= 11) {
@@ -90,20 +92,26 @@ const processData = (data) => {
   } else if (i >= 214 && i <= 236) {
     windDegree = +i + "° von Südwestlich";
   } else if (i >= 237 && i <= 258) {
-    windDegree = +i + "° von Westen-Südwestlich	";
+    windDegree = +i + "° von Westen-Südwestlich";
   } else if (i >= 259 && i <= 281) {
     windDegree = +i + "° von Westen";
   } else if (i >= 282 && i <= 303) {
-    windDegree = +i + "° von Westen-Nordwestlich	";
+    windDegree = +i + "° von Westen-Nordwestlich";
   } else if (i >= 304 && i <= 326) {
     windDegree = +i + "° von Nordwestlich";
   } else if (i >= 327 && i <= 348) {
-    windDegree = +i + "° von Norden-Nordwestlich	";
+    windDegree = +i + "° von Norden-Nordwestlich";
+  } else if (i >= 349 && i <= 360) {
+    windDegree = +i + "° von Norden";
+  } else if (i >= 0 && i <= 11) {
+    windDegree = +i + "° von Norden";
   }
   // Berechnung der Timestamps in Datum
   sunRise = new Date(sunRise * 1000);
   sunSet = new Date(sunSet * 1000);
 
+  // Berechnung der Windgeschindigkeit von m/s in km/h
+  windSpeed = (data.wind.speed * 3.6).toFixed(2);
   // Berechnung der Zeiten
   let localeTime = new Date().getTime();
   console.log(localeTime);
@@ -111,6 +119,29 @@ const processData = (data) => {
   console.log(date);
   timeZone = date.toLocaleTimeString();
   console.log(timeZone);
+
+  // Fetchen der aktuellen Luftverschmutzung
+  let airPollution;
+  let airPollutionRating;
+  fetch(
+    `http://api.openweathermap.org/data/2.5/air_pollution?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      airPollution = data.list[0].main.aqi;
+      if (airPollution == 1) {
+        airPollutionRating = "Gut";
+      } else if (airPollution == 2) {
+        airPollutionRating = "Fair";
+      } else if (airPollution == 3) {
+        airPollutionRating = "Moderat";
+      } else if (airPollution == 4) {
+        airPollutionRating = "Schlecht";
+      } else if (airPollution == 5) {
+        airPollutionRating = "Sehr Schlecht";
+      }
+    })
+    .catch((error) => console.log("Fehler beim Laden: ", error));
   // Fetchen des 5 Tage ForeCasts bzw der 3 Stunden Forecasts
   fetch(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
@@ -177,22 +208,25 @@ const processData = (data) => {
 
         // !Output in das HTML
         // Output der ForecastItems im Forecastcontainer
+        // <div class = tempforecastbox> <img class=weathericonforecast src="http://openweathermap.org/img/wn/${
+        //   timestamp.weather[0].icon
+        // }@2x.png" >
         const foreCastContainer = `<div class=forecastitem> <h2 class=forecastday>${foreCastTitleTxt} </h2>
 
-        <div class = tempforecastbox> <img class=weathericonforecast src="http://openweathermap.org/img/wn/${
+        <div class = tempforecastbox> <img class=weathericonforecast src="../assets/img/wetterappicons/${
           timestamp.weather[0].icon
-        }@2x.png" > <h2> ${timestamp.main.temp.toFixed()} °</h2></div>
+        }.png" > <h2> ${timestamp.main.temp.toFixed()} °</h2></div>
         <h3 class=forecasttime>${foreCastTitleTime}</h3>
         <h3 class=forecastdate>${foreCastTitleDate}</h3>
         </div>`;
         outputForecast.insertAdjacentHTML("beforeend", foreCastContainer);
       });
       // Output des aktuellen Wetters MAIN
-
+      // <img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="" class="weathericon" />
       let outputMainData = document.querySelector(".outputcontainer");
       const outputContainerMain = `<h1 class="weathertitle">Wetter in ${cityName},${country}</h1>
   <div class="temperaturecontainer">
-    <img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="" class="weathericon" />
+  <img src="../assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericon" />
     <p class="temperatureoutput">${temp.toFixed()}<span class=tempunit>°C</span></p>
   </div>
   <p class="cloudinfooutput">${weatherDescription}</p>
@@ -206,37 +240,62 @@ const processData = (data) => {
 
       outputMainData.insertAdjacentHTML("afterbegin", outputContainerMain);
       let outputSecData = document.querySelector(".outputcontainersec");
-      const outputContainerSecondary = `<div class="windcontainer">
+      const outputContainerSecondary = `<h2 class=todayhighlights>Today's Highlights</h2>
+      <section class=secondaryitems>
+      <div class="windcontainer">
       <h3>Wind</h3>
-      <h3 class="windoutput">${windDegree},${windSpeed} m/s</h3>
+      <article class=windinfodescrcontainer><img class="windarrow" src="../assets/img/uparrow.png" > <h4 class="windoutput">${windSpeed} <span class=innerunits> km/h</span></h4></article>
+      <h3 class="winddegreeoutput">${windDegree}</h3>
     </div>
     <div class="cloudinesscontainer">
       <h3>Wolken</h3>
-      <h3 class="cloudinessoutput">${weatherDescription}</h3>
+      <article class=cloudinfodescrcontainer><img src="../assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericoninnercontainer" />
+      <h4 class="cloudinessoutput">${weatherDescription}</h4> </article>
     </div>
     <div class="pressurecontainer">
       <h3>Luftdruck</h3>
-      <h3 class="pressureoutput">${pressure} Hpa</h3>
+      <h3 class="pressureoutput">${pressure} <span class=innerunits>Hpa</span></h3>
     </div>
     <div class="humiditycontainer">
       <h3>Luftfeuchtigkeit</h3>
-      <h3 class="humidityoutput">${humidity} %</h3>
+      <article class=humiditydescrcontainer><img class="humidityimg" src="../assets/img/wetterappicons/humidity.png"> <h4 class="humidityoutput">${humidity}<span class=innerunits> %</span></h4></article>
     </div>
     <div class="sunrisecontainer">
-      <h3>Sonnenaufgang</h3>
-      <h3 class="sunriseoutput">0${sunRise.getHours()}:${sunRise.getMinutes()}</h3>
+      <h3>Sonnenaufgang/untergang</h3>
+      <h3 class="sunriseoutput"><img class="sunriseimg" src="../assets/img/wetterappicons/sunrise.png">0${sunRise.getHours()}:${sunRise.getMinutes()}<span class=innerunits> Uhr </span></h3>
+      <h3 class="sunsetoutput"><img class="sunsetimg" src="../assets/img/wetterappicons/sunset.png">${sunSet.getHours()}:${sunSet.getMinutes()}<span class=innerunits> Uhr </span></h3>
     </div>
-    <div class="sunsetcontainer">
-      <h3>Sonnenuntergang</h3>
-      <h3 class="sunsetoutput">${sunSet.getHours()}:${sunSet.getMinutes()}</h3>
+    <div class="feelslikecontainer">
+      <h3>Gefühlte Temperatur</h3>
+      <h3 class="feelslikeoutput">${feelsLike}<span class=innerunits> °C</span></h3>
     </div>
-    <div class="coordcontainer">
-      <h3>Koordinaten</h3>
-      <h3 class="coordoutput">[${coordLat.toFixed(2)},${coordLon.toFixed(
-        2
-      )}]</h3>
-    </div>`;
+    <div class="airpollutioncontainer">
+      <h3>Luftverschmutzung</h3>
+      <h3 class="airpollutionoutput">${airPollution} <h3 class="airpollutiondescoutput">${airPollutionRating}</h3></h3>
+    </div>
+    <div class="tempmaxmincontainer">
+      <h3>Temp Max/Min</h3>
+      <article class=tempmaxminoutputs> <h4 class="tempminoutput"></span>${tempMin.toFixed()}<span class=innerunits> °C</span></h4><h4 class="tempmaxoutput"></span>${tempMax.toFixed()}<span class=innerunits> °C</span></h4></article>  
+      <article class=templine></article>
+      <article class=minmaxtitle><h4>MIN</h4> <h4>MAX</h4></article>
+        </div>
+ </section>
+`;
+      const weatherCardOutput = `<div class="coordcontainer">
+      <h3 class=weathercardtitle>Wetterkarte</h3>
+      <iframe class=iframeweathercard width="100%" height="600px" src="https://embed.windy.com/embed2.html${coordinatesWeatherCard}&width=1000&height=1000&zoom=10&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+      <h3 class="coordoutput">Koordinaten[${coordLat.toFixed(
+        5
+      )},${coordLon.toFixed(5)}]</h3>
+    </div>
+    `;
+
       outputSecData.insertAdjacentHTML("afterbegin", outputContainerSecondary);
+      outputSecData.insertAdjacentHTML("beforeend", weatherCardOutput);
+      // Das Icon der Windrichtung wird entsprechend nach der Degree-Zahl aus dem Fetch gedreht
+      document.querySelector(
+        ".windarrow"
+      ).style.transform = `rotate(${windArrowDirection}deg)`;
     })
     .catch((error) => console.log("Fehler beim Laden: ", error));
 };

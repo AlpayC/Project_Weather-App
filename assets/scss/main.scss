@@ -17,6 +17,7 @@
 
 .dashboardcontainer {
   @include dashboardcontainerstyling;
+  // @include scrollbarstyle;
   .leftcontainer {
     @include leftcontainerstyling;
     .todaysoutput {
@@ -27,10 +28,19 @@
   }
   .rightcontainer {
     @include rightcontainerstyling;
+
     .forecastcontainer {
       @include forecastcontainerstyling;
       .forecastitem {
         @include forecastitemstyling;
+      }
+    }
+    .outputcontainersec {
+      .secondaryitems {
+        @include outputcontainersecstyling;
+        div {
+          @include secondaryitemstyling;
+        }
       }
     }
   }

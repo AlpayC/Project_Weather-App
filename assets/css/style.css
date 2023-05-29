@@ -43,6 +43,11 @@ p {
   font-weight: 500;
 }
 
+h4 {
+  font-size: 2.5rem;
+  font-weight: 100;
+}
+
 /*DASHBOARDCONTAINER*/
 .todaysoutput {
   height: 90%;
@@ -64,8 +69,127 @@ p {
 }
 
 .cityimg {
-  height: 100%;
   width: 50%;
+}
+
+.todayhighlights,
+.weathercardtitle {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: futura;
+  letter-spacing: 1px;
+}
+
+.weathercardtitle {
+  margin-top: 2rem;
+  font-weight: bold;
+  padding-left: 2rem;
+}
+
+.outputcontainersec {
+  padding: 2rem;
+}
+
+.windoutput,
+.humidityoutput,
+.feelslikeoutput,
+.pressureoutput,
+.airpollutionoutput,
+.tempmaxoutput,
+.tempminoutput {
+  font-size: 4.5rem;
+}
+
+.innerunits {
+  font-size: 2rem;
+}
+
+.tempmaxoutput,
+.tempminoutput,
+.sunsetoutput,
+.sunriseoutput {
+  font-size: 4.5rem;
+  font-weight: 500;
+}
+
+.itemimg {
+  width: 10%;
+}
+
+.weathericoninnercontainer,
+.humidityimg {
+  width: 40%;
+}
+
+.templine {
+  border-top: 2px dashed black;
+  width: 100%;
+}
+
+.minmaxtitle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.tempmaxminoutputs {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cloudinfodescrcontainer,
+.humiditydescrcontainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.windinfodescrcontainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: 2rem;
+}
+
+.windarrow {
+  transform: rotate(0deg);
+}
+
+.pressureoutput,
+.feelslikeoutput,
+.airpollutioncontainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sunriseimg,
+.sunsetimg {
+  width: 25%;
+  margin-right: 1rem;
+}
+
+.sunriseoutput,
+.sunsetoutput,
+.windoutput,
+.humidityoutput {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: -5rem;
+}
+
+.iframeweathercard {
+  border-radius: 8rem;
+  overflow: auto;
 }
 
 .circleanimation {
@@ -102,15 +226,18 @@ p {
   border-radius: 5rem;
   padding: 5rem;
   display: flex;
+  justify-content: space-evenly;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .dashboardcontainer .leftcontainer {
   width: 20%;
   background-color: #fff;
-  margin: -5rem 0 -5rem -5rem;
+  margin: -5rem 0 -5rem -10rem;
   height: 90vh;
   border-bottom-left-radius: 5rem;
   border-top-left-radius: 5rem;
   padding: 5rem;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .dashboardcontainer .leftcontainer .todaysoutput .outputcontainer {
   display: flex;
@@ -119,11 +246,12 @@ p {
   height: 100%;
 }
 .dashboardcontainer .rightcontainer {
-  background-color: #f6f6f8;
+  background-color: transparent;
   width: 80%;
   height: 90vh;
   margin: -5rem -5rem -5rem 0;
   padding: 5rem;
+  padding-left: 0;
   border-bottom-right-radius: 5rem;
   border-top-right-radius: 5rem;
 }
@@ -135,6 +263,7 @@ p {
   flex-direction: row;
   gap: 2rem;
   margin-bottom: 5rem;
+  padding: 2rem;
 }
 .dashboardcontainer .rightcontainer .forecastcontainer .forecastitem {
   display: flex;
@@ -145,6 +274,30 @@ p {
   padding: 4rem;
   border-radius: 2rem;
   background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.dashboardcontainer .rightcontainer .outputcontainersec .secondaryitems {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 50%;
+  gap: 2.5rem;
+}
+.dashboardcontainer .rightcontainer .outputcontainersec .secondaryitems div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 3rem;
+  border-radius: 2rem;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.dashboardcontainer .rightcontainer .outputcontainersec .secondaryitems div h3:first-of-type {
+  color: #d2d2d2;
+  margin-bottom: 1rem;
+  font-family: futuralight;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -39,6 +39,10 @@ p {
   font-size: 1.8rem;
   font-weight: 500;
 }
+h4 {
+  font-size: 2.5rem;
+  font-weight: 100;
+}
 /*DASHBOARDCONTAINER*/
 .todaysoutput {
   height: 90%;
@@ -58,6 +62,109 @@ p {
   }
 }
 .cityimg {
-  height: 100%;
   width: 50%;
+}
+.todayhighlights,
+.weathercardtitle {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  font-family: futura;
+  letter-spacing: 1px;
+}
+.weathercardtitle {
+  margin-top: 2rem;
+  font-weight: bold;
+  padding-left: 2rem;
+}
+.outputcontainersec {
+  padding: 2rem;
+}
+.windoutput,
+.humidityoutput,
+.feelslikeoutput,
+.pressureoutput,
+.airpollutionoutput,
+.tempmaxoutput,
+.tempminoutput {
+  font-size: 4.5rem;
+}
+.innerunits {
+  font-size: 2rem;
+}
+.tempmaxoutput,
+.tempminoutput,
+.sunsetoutput,
+.sunriseoutput {
+  font-size: 4.5rem;
+  font-weight: 500;
+}
+.itemimg {
+  width: 10%;
+}
+.weathericoninnercontainer,
+.humidityimg {
+  width: 40%;
+}
+.templine {
+  border-top: 2px dashed black;
+  width: 100%;
+}
+.minmaxtitle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.5rem;
+}
+.tempmaxminoutputs {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.cloudinfodescrcontainer,
+.humiditydescrcontainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.windinfodescrcontainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  gap: 2rem;
+}
+.windarrow {
+  transform: rotate(0deg);
+}
+.pressureoutput,
+.feelslikeoutput,
+.airpollutioncontainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.sunriseimg,
+.sunsetimg {
+  width: 25%;
+  margin-right: 1rem;
+}
+.sunriseoutput,
+.sunsetoutput,
+.windoutput,
+.humidityoutput {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: -5rem;
+}
+
+.iframeweathercard {
+  border-radius: 8rem;
+  overflow: auto;
 }
