@@ -17,8 +17,10 @@
 
 .dashboardcontainer {
   @include dashboardcontainerstyling;
-  // @include scrollbarstyle;
+  @include scrollbarstyle;
+
   .leftcontainer {
+    @include inputstyling;
     @include leftcontainerstyling;
     .todaysoutput {
       .outputcontainer {
@@ -28,7 +30,6 @@
   }
   .rightcontainer {
     @include rightcontainerstyling;
-
     .forecastcontainer {
       @include forecastcontainerstyling;
       .forecastitem {
@@ -36,11 +37,17 @@
       }
     }
     .outputcontainersec {
+      overflow-y: scroll;
+      height: 100vh;
       .secondaryitems {
+        margin-bottom: 5rem;
         @include outputcontainersecstyling;
         div {
           @include secondaryitemstyling;
         }
+      }
+      .coordcontainer {
+        height: 140%;
       }
     }
   }

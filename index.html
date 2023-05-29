@@ -14,8 +14,18 @@
     <section class="dashboardcontainer">
       <article class="leftcontainer">
         <div class="inputfields">
-          <input type="text" name="city" id="city" />
-          <input onclick="getWeatherData()" type="submit" value="Suche" />
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="Suche nach einer Stadt..."
+          />
+          <input
+            onclick="getWeatherData()"
+            type="submit"
+            value="Suche"
+            class="btn"
+          />
         </div>
         <div class="todaysoutput">
           <div class="outputcontainer"></div>

@@ -19,6 +19,7 @@ img {
 body {
   background-color: $bgcolor;
   font-family: futura;
+  overflow: hidden;
 }
 /*FONT STYLING*/
 h1 {
@@ -62,8 +63,22 @@ h4 {
   }
 }
 .cityimg {
-  width: 50%;
+  width: 100%;
+  height: 20%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+.citynameimg {
+  font-size: 5rem;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 6px black;
+}
+
 .todayhighlights,
 .weathercardtitle {
   font-size: 3rem;
@@ -165,6 +180,17 @@ h4 {
 }
 
 .iframeweathercard {
-  border-radius: 8rem;
-  overflow: auto;
+  border-radius: 2rem;
+}
+.forecastitem:hover,
+.windcontainer:hover,
+.cloudinesscontainer:hover,
+.pressurecontainer:hover,
+.humiditycontainer:hover,
+.sunrisecontainer:hover,
+.feelslikecontainer:hover,
+.airpoluttioncontainer:hover,
+.tempmaxmincontainer:hover,
+.airpollutioncontainer:hover {
+  box-shadow: $innerboxshadow;
 }
