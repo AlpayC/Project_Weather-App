@@ -203,7 +203,7 @@ const processData = (data) => {
         // }@2x.png" >
         const foreCastContainer = `<div class=forecastitem> <h2 class=forecastday>${foreCastTitleTxt} </h2>
 
-        <div class = tempforecastbox> <img class=weathericonforecast src="../assets/img/wetterappicons/${
+        <div class = tempforecastbox> <img class=weathericonforecast src="./assets/img/wetterappicons/${
           timestamp.weather[0].icon
         }.png" > <h2> ${timestamp.main.temp.toFixed()} °</h2></div>
         <h3 class=forecasttime>${foreCastTitleTime}</h3>
@@ -216,7 +216,7 @@ const processData = (data) => {
       let outputMainData = document.querySelector(".outputcontainer");
       const outputContainerMain = `<h1 class="weathertitle">Wetter in ${cityName},${country}</h1>
   <div class="temperaturecontainer">
-  <img src="../assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericon" />
+  <img src="./assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericon" />
     <p class="temperatureoutput">${temp.toFixed()}<span class=tempunit>°C</span></p>
   </div>
   <p class="cloudinfooutput">${weatherDescription}</p>
@@ -235,12 +235,12 @@ const processData = (data) => {
       <section class=secondaryitems id=innersecitems>
       <div class="windcontainer">
       <h3>Wind</h3>
-      <article class=windinfodescrcontainer><img class="windarrow" src="../assets/img/uparrow.png" > <h4 class="windoutput">${windSpeed} <span class=innerunits> km/h</span></h4></article>
+      <article class=windinfodescrcontainer><img class="windarrow" src="./assets/img/uparrow.png" > <h4 class="windoutput">${windSpeed} <span class=innerunits> km/h</span></h4></article>
       <h3 class="winddegreeoutput">${windDegree}</h3>
     </div>
     <div class="cloudinesscontainer">
       <h3>Wolken</h3>
-      <article class=cloudinfodescrcontainer><img src="../assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericoninnercontainer" />
+      <article class=cloudinfodescrcontainer><img src="./assets/img/wetterappicons/${weatherIcon}.png" alt="" class="weathericoninnercontainer" />
       <h4 class="cloudinessoutput">${weatherDescription}</h4> </article>
     </div>
     <div class="pressurecontainer">
@@ -249,12 +249,12 @@ const processData = (data) => {
     </div>
     <div class="humiditycontainer">
       <h3>Luftfeuchtigkeit</h3>
-      <article class=humiditydescrcontainer><img class="humidityimg" src="../assets/img/wetterappicons/humidity.png"> <h4 class="humidityoutput">${humidity}<span class=innerunits> %</span></h4></article>
+      <article class=humiditydescrcontainer><img class="humidityimg" src="./assets/img/wetterappicons/humidity.png"> <h4 class="humidityoutput">${humidity}<span class=innerunits> %</span></h4></article>
     </div>
     <div class="sunrisecontainer">
       <h3>Sonnenaufgang/untergang</h3>
-      <h3 class="sunriseoutput"><img class="sunriseimg" src="../assets/img/wetterappicons/sunrise.png">0${sunRise.getHours()}:${sunRise.getMinutes()}<span class=innerunits> Uhr </span></h3>
-      <h3 class="sunsetoutput"><img class="sunsetimg" src="../assets/img/wetterappicons/sunset.png">${sunSet.getHours()}:${sunSet.getMinutes()}<span class=innerunits> Uhr </span></h3>
+      <h3 class="sunriseoutput"><img class="sunriseimg" src="./assets/img/wetterappicons/sunrise.png">0${sunRise.getHours()}:${sunRise.getMinutes()}<span class=innerunits> Uhr </span></h3>
+      <h3 class="sunsetoutput"><img class="sunsetimg" src="./assets/img/wetterappicons/sunset.png">${sunSet.getHours()}:${sunSet.getMinutes()}<span class=innerunits> Uhr </span></h3>
     </div>
     <div class="feelslikecontainer">
       <h3>Gefühlte Temperatur</h3>
