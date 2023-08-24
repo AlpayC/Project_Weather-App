@@ -1,4 +1,5 @@
-const apiKey = "644ce177f2832521a036c130adc9e8da";
+const apiKeyOpenWeather = "86a867295839346ffe70674de8eef195";
+const apiKeyPixaBay = "36815996-aa926cadda8d303d9cfe5178f";
 
 const getWeatherData = () => {
   // Vorherige Inhalte werden gelöscht
@@ -15,7 +16,7 @@ const getWeatherData = () => {
   // Es wird geprüft, ob im Input eine Zahl oder ein Text enthalten ist. typeof city gibt selbst bei einer Zahl immer String aus. Daher habe ich !isNan als Prüfoperator genutzt. So ist eine if else bedingung ob Zahl oder String möglich. Wird eine Stadt gefunden, die die API für uns finden kann, dann werden die geladenen Daten an die Funktion processData übergeben
   if (!isNaN(city)) {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=de,&appid=${apiKey}&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=de,&appid=${apiKeyOpenWeather}&units=metric`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -24,7 +25,7 @@ const getWeatherData = () => {
       .catch((error) => console.log("Fehler beim Laden: ", error));
   } else if (typeof city === "string") {
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city},&appid=${apiKey}&lang=de&units=metric`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city},&appid=${apiKeyOpenWeather}&lang=de&units=metric`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -118,7 +119,7 @@ const processData = (data) => {
   let airPollution;
   let airPollutionRating;
   fetch(
-    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
+    `https://api.openweathermap.org/data/2.5/air_pollution?lat=${coordLat}&lon=${coordLon}&appid=${apiKeyOpenWeather}&units=metric&lang=de`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -139,7 +140,7 @@ const processData = (data) => {
     .catch((error) => console.log("Fehler beim Laden: ", error));
   // Fetchen des 5 Tage ForeCasts bzw der 3 Stunden Forecasts durch die openweather API. Dabei werden alle möglichen Timestamps in seperate HTML Objekte gespeichert.
   fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${coordLat}&lon=${coordLon}&appid=${apiKey}&units=metric&lang=de`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${coordLat}&lon=${coordLon}&appid=${apiKeyOpenWeather}&units=metric&lang=de`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -293,7 +294,7 @@ const processData = (data) => {
       let cityBackground = document.querySelector(".cityimg");
       let cityBackgroundUrl;
       fetch(
-        `https://pixabay.com/api/?key=36815996-aa926cadda8d303d9cfe5178f&q=${inputValue}+city`
+        `https://pixabay.com/api/?key=${apiKeyPixaBay}&q=${inputValue}+city`
       )
         .then((res) => res.json())
         .then((data) => {
