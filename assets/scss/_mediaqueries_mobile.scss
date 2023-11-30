@@ -1,3 +1,66 @@
 // MEDIA QUERIES MOBILE//
 @media screen and (max-width: 576px) {
+  body {
+    .dashboardcontainer {
+      display: block;
+      margin: 2.5rem;
+      padding: 2rem;
+      height: 95vh;
+      overflow: scroll;
+      border-radius: 2rem;
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      .leftcontainer {
+        width: 100%;
+        margin: unset;
+        height: auto;
+        border-radius: 2rem;
+        background-color: unset;
+        box-shadow: unset;
+        padding: 2rem;
+        .inputfields {
+          gap: 1.5rem;
+          input {
+            font-size: 1.5rem;
+          }
+        }
+
+        .todaysoutput {
+          .outputcontainer {
+            flex-direction: column;
+            overflow: scroll;
+            height: min-content;
+            padding-bottom: 5rem;
+            gap: 2rem;
+            .cityimg {
+              .citynameimg {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+              }
+            }
+          }
+        }
+      }
+      .rightcontainer {
+        width: 100%;
+        padding: 0rem;
+        margin-bottom: 5rem;
+        height: unset;
+        .forecastcontainer {
+          margin-bottom: 0rem;
+        }
+        .outputcontainersec {
+          overflow: unset;
+          height: unset;
+          .secondaryitems {
+            grid-template-columns: repeat(1, 1fr);
+            div {
+              padding: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
