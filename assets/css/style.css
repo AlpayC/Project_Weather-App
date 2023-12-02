@@ -245,7 +245,7 @@ h4 {
     display: block;
     margin: 2.5rem;
     padding: 2rem;
-    height: 90vh;
+    height: 85vh;
     overflow: scroll;
     border-radius: 2rem;
   }
@@ -262,6 +262,9 @@ h4 {
     padding: 2rem;
   }
   body .dashboardcontainer .leftcontainer .inputfields {
+flex-direction:column;
+justify-content:center;
+align-items:center;
     gap: 1.5rem;
   }
   body .dashboardcontainer .leftcontainer .inputfields input {
